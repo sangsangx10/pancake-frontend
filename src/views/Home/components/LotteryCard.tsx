@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import styled from 'styled-components'
-import { Heading, Card, CardBody, Button, useModal } from '@ichikanakano/uikit'
+import { Heading, Card, CardBody, Button, useModal, Text, Skeleton } from '@ichikanakano/uikit'
 import { getCakeAddress } from 'utils/addressHelpers'
 import { getBalanceNumber } from 'utils/formatBalance'
 import useI18n from 'hooks/useI18n'
@@ -9,9 +9,9 @@ import useTokenBalance from 'hooks/useTokenBalance'
 import { useMultiClaimLottery } from 'hooks/useBuyLottery'
 import { useTotalClaim } from 'hooks/useTickets'
 import BuyModal from 'views/Lottery/components/TicketCard/BuyTicketModal'
+import { useGetStats } from 'hooks/api'
 import CakeWinnings from './CakeWinnings'
 import LotteryJackpot from './LotteryJackpot'
-import { useGetStats } from 'hooks/api'
 
 const StyledLotteryCard = styled(Card)`
   background-image: url('/images/ticket-bg.svg');
