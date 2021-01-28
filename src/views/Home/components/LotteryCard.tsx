@@ -87,7 +87,7 @@ const FarmedStakingCard = () => {
         {data ? (
           <>
             <Heading size="xl">{`$${tvl}`}</Heading>
-            <Text color="textSubtle">{TranslateString(999, 'Across all LPs and Syrup Pools')}</Text>
+            <Text color="textSubtle">{TranslateString(999, 'Across all LPs and Popcorn Pools')}</Text>
           </>
         ) : (
           <>
@@ -95,15 +95,15 @@ const FarmedStakingCard = () => {
           </>
         )}
         <Row>
-          <Text fontSize="14px">{TranslateString(536, 'Total CAKE Supply')}</Text>
+          <Text fontSize="14px">{TranslateString(536, 'Total POPCORN Supply')}</Text>
           {cakeSupply && <CardValue fontSize="14px" value={cakeSupply} />}
         </Row>
         <Row>
-          <Text fontSize="14px">{TranslateString(538, 'Total CAKE Burned')}</Text>
+          <Text fontSize="14px">{TranslateString(538, 'Total POPCORN Burned')}</Text>
           <CardValue fontSize="14px" value={getBalanceNumber(burnedBalance)} />
         </Row>
         <Row>
-          <Text fontSize="14px">{TranslateString(540, 'New CAKE/block')}</Text>
+          <Text fontSize="14px">{TranslateString(540, 'New POPCORN/block')}</Text>
           <CardValue fontSize="14px" decimals={0} value={25} />
         </Row>
       </CardBody>
