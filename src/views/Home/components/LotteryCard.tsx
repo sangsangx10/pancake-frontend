@@ -5,15 +5,13 @@ import { getCakeAddress } from 'utils/addressHelpers'
 import { getBalanceNumber } from 'utils/formatBalance'
 import useI18n from 'hooks/useI18n'
 import useGetLotteryHasDrawn from 'hooks/useGetLotteryHasDrawn'
-import useTokenBalance from 'hooks/useTokenBalance'
+import { useTokenBalance, useTotalSupply, useBurnedBalance } from 'hooks/useTokenBalance'
 import { useMultiClaimLottery } from 'hooks/useBuyLottery'
 import { useTotalClaim } from 'hooks/useTickets'
 import BuyModal from 'views/Lottery/components/TicketCard/BuyTicketModal'
 import { useGetStats } from 'hooks/api'
 import CakeWinnings from './CakeWinnings'
 import LotteryJackpot from './LotteryJackpot'
-import { getBalanceNumber } from 'utils/formatBalance'
-import { useTotalSupply, useBurnedBalance } from 'hooks/useTokenBalance'
 
 const StyledLotteryCard = styled(Card)`
   background-image: url('/images/ticket-bg.svg');
