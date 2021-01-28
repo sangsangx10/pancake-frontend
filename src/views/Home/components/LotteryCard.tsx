@@ -12,6 +12,8 @@ import BuyModal from 'views/Lottery/components/TicketCard/BuyTicketModal'
 import { useGetStats } from 'hooks/api'
 import CakeWinnings from './CakeWinnings'
 import LotteryJackpot from './LotteryJackpot'
+import { getBalanceNumber } from 'utils/formatBalance'
+import { useTotalSupply, useBurnedBalance } from 'hooks/useTokenBalance'
 
 const StyledLotteryCard = styled(Card)`
   background-image: url('/images/ticket-bg.svg');
@@ -50,6 +52,9 @@ const FarmedStakingCard = () => {
   const cakeBalance = useTokenBalance(getCakeAddress())
   const data = useGetStats()
   const tvl = data ? data.total_value_locked_all.toLocaleString('en-US', { maximumFractionDigits: 0 }) : null
+  const totalSupply = useTotalSupply()
+  const burnedBalance = useBurnedBalance(getCakeAddress())
+  const cakeSupply = totalSupply ? getBalanceNumber(totalSupply) - getBalanceNumber(burnedBalance) : 0
 
   const handleClaim = useCallback(async () => {
     try {
@@ -72,7 +77,6 @@ const FarmedStakingCard = () => {
         <Heading size="xl" mb="24px">
           {TranslateString(999, 'Total Value Locked (TVL)')}
         </Heading>
-        <CardImage src="/images/ticket.svg" alt="cake logo" width={64} height={64} />
         {data ? (
           <>
             <Heading size="xl">{`$${tvl}`}</Heading>
@@ -83,6 +87,18 @@ const FarmedStakingCard = () => {
             <Skeleton height={66} />
           </>
         )}
+        <Row>
+          <Text fontSize="14px">{TranslateString(536, 'Total CAKE Supply')}</Text>
+          {cakeSupply && <CardValue fontSize="14px" value={cakeSupply} />}
+        </Row>
+        <Row>
+          <Text fontSize="14px">{TranslateString(538, 'Total CAKE Burned')}</Text>
+          <CardValue fontSize="14px" value={getBalanceNumber(burnedBalance)} />
+        </Row>
+        <Row>
+          <Text fontSize="14px">{TranslateString(540, 'New CAKE/block')}</Text>
+          <CardValue fontSize="14px" decimals={0} value={25} />
+        </Row>
       </CardBody>
     </StyledLotteryCard>
   )
