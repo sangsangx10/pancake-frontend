@@ -11,6 +11,7 @@ import { useTotalClaim } from 'hooks/useTickets'
 import BuyModal from 'views/Lottery/components/TicketCard/BuyTicketModal'
 import CakeWinnings from './CakeWinnings'
 import LotteryJackpot from './LotteryJackpot'
+import { useGetStats } from 'hooks/api'
 
 const StyledLotteryCard = styled(Card)`
   background-image: url('/images/ticket-bg.svg');
@@ -47,6 +48,8 @@ const FarmedStakingCard = () => {
   const { claimAmount } = useTotalClaim()
   const { onMultiClaim } = useMultiClaimLottery()
   const cakeBalance = useTokenBalance(getCakeAddress())
+  const data = useGetStats()
+  const tvl = data ? data.total_value_locked_all.toLocaleString('en-US', { maximumFractionDigits: 0 }) : null
 
   const handleClaim = useCallback(async () => {
     try {
@@ -67,30 +70,19 @@ const FarmedStakingCard = () => {
     <StyledLotteryCard>
       <CardBody>
         <Heading size="xl" mb="24px">
-          {TranslateString(550, 'Your Lottery Winnings')}
+          {TranslateString(999, 'Total Value Locked (TVL)')}
         </Heading>
         <CardImage src="/images/ticket.svg" alt="cake logo" width={64} height={64} />
-        <Block>
-          <CakeWinnings />
-          <Label>{TranslateString(552, 'CAKE to Collect')}</Label>
-        </Block>
-        <Block>
-          <LotteryJackpot />
-          <Label>{TranslateString(554, 'Total jackpot this round')}</Label>
-        </Block>
-        <Actions>
-          <Button
-            id="dashboard-collect-winnings"
-            disabled={getBalanceNumber(claimAmount) === 0 || requesteClaim}
-            onClick={handleClaim}
-            style={{ marginRight: '8px' }}
-          >
-            {TranslateString(556, 'Collect Winnings')}
-          </Button>
-          <Button id="dashboard-buy-tickets" variant="secondary" onClick={onPresentBuy} disabled={lotteryHasDrawn}>
-            {TranslateString(558, 'Buy Tickets')}
-          </Button>
-        </Actions>
+        {data ? (
+          <>
+            <Heading size="xl">{`$${tvl}`}</Heading>
+            <Text color="textSubtle">{TranslateString(999, 'Across all LPs and Syrup Pools')}</Text>
+          </>
+        ) : (
+          <>
+            <Skeleton height={66} />
+          </>
+        )}
       </CardBody>
     </StyledLotteryCard>
   )
