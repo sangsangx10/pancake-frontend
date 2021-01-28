@@ -5,7 +5,7 @@ const pools: PoolConfig[] = [
     sousId: 0,
     tokenName: 'POPCORN',
     stakingTokenName: QuoteToken.POPCORN,
-    stakingTokenAddress: '0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82',
+    stakingTokenAddress: '0xa532c7fc2c912db822dbdc14a020c7f1b62b5141',
     contractAddress: {
       97: '0xd3af5fe61dbaf8f73149bfcfa9fb653ff096029a',
       56: '0x73feaa1eE314F8c655E354234017bE2193C9E24E',
