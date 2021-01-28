@@ -84,7 +84,7 @@ const ComingSoon = () => {
             </Text>
             <Button
               as="a"
-              href="https://docs.google.com/forms/d/e/1FAIpQLScGdT5rrVMr4WOWr08pvcroSeuIOtEJf1sVdQGVdcAOqryigQ/viewform"
+              href="#"
               target="_blank"
               rel="noopener noreferrer"
             >
