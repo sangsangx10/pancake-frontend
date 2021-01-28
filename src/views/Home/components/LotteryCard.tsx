@@ -80,19 +80,6 @@ const FarmedStakingCard = () => {
   return (
     <StyledLotteryCard>
       <CardBody>
-        <Heading size="xl" mb="24px">
-          {TranslateString(999, 'Total Value Locked (TVL)')}
-        </Heading>
-        {data ? (
-          <>
-            <Heading size="xl">{`$${tvl}`}</Heading>
-            <Text color="textSubtle">{TranslateString(999, 'Across all LPs and Popcorn Pools')}</Text>
-          </>
-        ) : (
-          <>
-            <Skeleton height={66} />
-          </>
-        )}
         <Row>
           <Text fontSize="14px">{TranslateString(536, 'Total POPCORN Supply')}</Text>
           {cakeSupply && <CardValue fontSize="14px" value={cakeSupply} />}
