@@ -1,22 +1,31 @@
 import React, { useState, useCallback } from 'react'
 import styled from 'styled-components'
-import { Heading, Card, CardBody, Button, useModal } from '@pancakeswap-libs/uikit'
+import { Heading, Card, CardBody, Button, useModal, Text, Skeleton } from '@ichikanakano/uikit'
 import { getCakeAddress } from 'utils/addressHelpers'
 import { getBalanceNumber } from 'utils/formatBalance'
 import useI18n from 'hooks/useI18n'
 import useGetLotteryHasDrawn from 'hooks/useGetLotteryHasDrawn'
-import useTokenBalance from 'hooks/useTokenBalance'
+import useTokenBalance, { useTotalSupply, useBurnedBalance } from 'hooks/useTokenBalance'
 import { useMultiClaimLottery } from 'hooks/useBuyLottery'
 import { useTotalClaim } from 'hooks/useTickets'
 import BuyModal from 'views/Lottery/components/TicketCard/BuyTicketModal'
+import { useGetStats } from 'hooks/api'
+import CardValue from './CardValue'
 import CakeWinnings from './CakeWinnings'
 import LotteryJackpot from './LotteryJackpot'
 
 const StyledLotteryCard = styled(Card)`
-  background-image: url('/images/ticket-bg.svg');
   background-repeat: no-repeat;
   background-position: top right;
   min-height: 376px;
+`
+
+const Row = styled.div`
+  align-items: center;
+  display: flex;
+  font-size: 14px;
+  justify-content: space-between;
+  margin-bottom: 8px;
 `
 
 const Block = styled.div`
@@ -47,6 +56,11 @@ const FarmedStakingCard = () => {
   const { claimAmount } = useTotalClaim()
   const { onMultiClaim } = useMultiClaimLottery()
   const cakeBalance = useTokenBalance(getCakeAddress())
+  const data = useGetStats()
+  const tvl = data ? data.total_value_locked_all.toLocaleString('en-US', { maximumFractionDigits: 0 }) : null
+  const totalSupply = useTotalSupply()
+  const burnedBalance = useBurnedBalance(getCakeAddress())
+  const cakeSupply = totalSupply ? getBalanceNumber(totalSupply) - getBalanceNumber(burnedBalance) : 0
 
   const handleClaim = useCallback(async () => {
     try {
@@ -66,31 +80,18 @@ const FarmedStakingCard = () => {
   return (
     <StyledLotteryCard>
       <CardBody>
-        <Heading size="xl" mb="24px">
-          {TranslateString(550, 'Your Lottery Winnings')}
-        </Heading>
-        <CardImage src="/images/ticket.svg" alt="cake logo" width={64} height={64} />
-        <Block>
-          <CakeWinnings />
-          <Label>{TranslateString(552, 'CAKE to Collect')}</Label>
-        </Block>
-        <Block>
-          <LotteryJackpot />
-          <Label>{TranslateString(554, 'Total jackpot this round')}</Label>
-        </Block>
-        <Actions>
-          <Button
-            id="dashboard-collect-winnings"
-            disabled={getBalanceNumber(claimAmount) === 0 || requesteClaim}
-            onClick={handleClaim}
-            style={{ marginRight: '8px' }}
-          >
-            {TranslateString(556, 'Collect Winnings')}
-          </Button>
-          <Button id="dashboard-buy-tickets" variant="secondary" onClick={onPresentBuy} disabled={lotteryHasDrawn}>
-            {TranslateString(558, 'Buy Tickets')}
-          </Button>
-        </Actions>
+        <Row>
+          <Text fontSize="14px">{TranslateString(536, 'Total POPCORN Supply')}</Text>
+          {cakeSupply && <CardValue fontSize="14px" value={cakeSupply} />}
+        </Row>
+        <Row>
+          <Text fontSize="14px">{TranslateString(538, 'Total POPCORN Burned')}</Text>
+          <CardValue fontSize="14px" value={getBalanceNumber(burnedBalance)} />
+        </Row>
+        <Row>
+          <Text fontSize="14px">{TranslateString(540, 'New POPCORN/block')}</Text>
+          <CardValue fontSize="14px" decimals={0} value={10} />
+        </Row>
       </CardBody>
     </StyledLotteryCard>
   )

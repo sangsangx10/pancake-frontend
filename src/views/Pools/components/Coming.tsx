@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Image, Button } from '@pancakeswap-libs/uikit'
+import { Image, Button } from '@ichikanakano/uikit'
 import { CommunityTag } from 'components/Tags'
 import useI18n from 'hooks/useI18n'
 import Card from './Card'
@@ -49,7 +49,7 @@ const Coming: React.FC = () => {
         <Button
           variant="secondary"
           as="a"
-          href="https://docs.google.com/forms/d/e/1FAIpQLScGdT5rrVMr4WOWr08pvcroSeuIOtEJf1sVdQGVdcAOqryigQ/viewform"
+          href="#"
           external
           fullWidth
           mb="16px"
@@ -57,7 +57,7 @@ const Coming: React.FC = () => {
           {TranslateString(418, 'Apply Now')}
         </Button>
         <DetailPlaceholder>
-          <div style={{ flex: 1 }}>{TranslateString(352, 'APY')}:</div>
+          <div style={{ flex: 1 }}>{TranslateString(736, 'APR')}:</div>
           <Value>??</Value>
         </DetailPlaceholder>
         <DetailPlaceholder>
@@ -67,7 +67,7 @@ const Coming: React.FC = () => {
             </span>
             {TranslateString(384, 'Your Stake')}:
           </div>
-          <Value>??? CAKE</Value>
+          <Value>??? POPCORN</Value>
         </DetailPlaceholder>
       </div>
       <Footer>

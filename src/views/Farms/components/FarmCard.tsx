@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js'
 import styled, { keyframes } from 'styled-components'
 import { useWallet } from '@binance-chain/bsc-use-wallet'
 import { Link as ReactRouterLink } from 'react-router-dom'
-import { Button, Flex, Image, Link } from '@pancakeswap-libs/uikit'
+import { Button, Flex, Image, Link } from '@ichikanakano/uikit'
 import { communityFarms } from 'config/constants'
 import { Farm } from 'state/types'
 import { usePriceBnbBusd, usePriceCakeBusd } from 'state/hooks'
@@ -131,7 +131,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, removed }) => {
     if (farm.quoteTokenSymbol === QuoteToken.BNB) {
       return bnbPrice.times(farm.lpTotalInQuoteToken)
     }
-    if (farm.quoteTokenSymbol === QuoteToken.CAKE) {
+    if (farm.quoteTokenSymbol === QuoteToken.CAKE || farm.quoteTokenSymbol === QuoteToken.POPCORN) {
       return cakePrice.times(farm.lpTotalInQuoteToken)
     }
     return farm.lpTotalInQuoteToken
@@ -143,7 +143,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, removed }) => {
 
   return (
     <FCard>
-      {farm.tokenSymbol === 'CAKE' && <StyledCardAccent />}
+      {farm.tokenSymbol === 'POPCORN' && <StyledCardAccent />}
       <CardImage>
         <Flex flexDirection="column" alignItems="flex-start">
           <Multiplier>{farm.multiplier}</Multiplier>
@@ -157,11 +157,11 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, removed }) => {
       </Label>
       <Label>
         <span>{TranslateString(318, 'Earn')}</span>
-        <span className="right">{farm.dual ? farm.dual.earnLabel : 'CAKE'}</span>
+        <span className="right">{farm.dual ? farm.dual.earnLabel : 'POPCORN'}</span>
       </Label>
       {!removed && (
         <Label>
-          <span>{TranslateString(352, 'APY')}</span>
+          <span>{TranslateString(736, 'APR')}</span>
           <span className="right">
             {farm.apy
               ? `${farm.apy.times(new BigNumber(100)).toNumber().toLocaleString('en-US').slice(0, -1)}%`
